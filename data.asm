@@ -8,7 +8,7 @@ snesfontbg3_tiles_end:
 snesfontbg3_map: .incbin "res/font/pvsneslibfont.map"
 snesfontbg3_map_end:
 
-snesfontbg3_pal: .incbin "res/font/pvsneslibfont.pal"
+snesfontbg3_pal: .incbin "res/font/bg3fontpalette.pal"
 snesfontbg3_pal_end:
 
 .ends

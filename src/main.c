@@ -72,7 +72,7 @@ int main(void) {
 	consoleInit();
 
 	setMode(BG_MODE1,BG3_MODE1_PRORITY_HIGH);
-	bgSetDisable(0);
+	bgSetEnable(0);
 	bgSetDisable(1);
 	bgSetEnable(2);
 	bgSetDisable(3);
