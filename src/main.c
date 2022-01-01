@@ -25,80 +25,81 @@ char *bg3FontTileMap;
 
 // BG3 Text Functions
 
-void bg3FontInit(char *fontTileSource, 
-	char *fontTileSource_end, 
-	char *fontTilePalette, 
-	u8 paletteNumber, 
-	char *fontTileMapSource) {
-	bg3PaletteNumber = paletteNumber;
-	bg3FontTileMap = fontTileMapSource;
+void bg3FontInit(char *fontTileSource,
+    char *fontTileSource_end,
+    char *fontTilePalette,
+    u8 paletteNumber,
+    char *fontTileMapSource) {
+    bg3PaletteNumber = paletteNumber;
+    bg3FontTileMap = fontTileMapSource;
 
-	bgSetMapPtr(2, bg3TileMapAddress, SC_32x32);
+    bgSetMapPtr(2, bg3TileMapAddress, SC_32x32);
 
-	bgInitTileSet(2, fontTileSource, 
-		fontTilePalette, 
-		bg3PaletteNumber, 
-		(fontTileSource_end - fontTileSource), 
-		4*2, 
-		BG_16COLORS, 
-		bg3TileSetAddress);
+    bgInitTileSet(2, fontTileSource,
+        fontTilePalette,
+        bg3PaletteNumber,
+        (fontTileSource_end - fontTileSource),
+        4*2,
+        BG_16COLORS,
+        bg3TileSetAddress);
 }
 
 void bg3PrintText(char *string, u16 x, u16 y) {
-	bg3TilePointer = string;
-	for (bg3TileIndex=0; *bg3TilePointer != 0; bg3TileIndex++) {
-		bg3StringMap[(x+bg3TileIndex)*2 + y*64] = (*(bg3FontTileMap+(*bg3TilePointer-32)*2)) | (bg3PaletteNumber<<10) | (1<<13); // on bg 3 so priority high
-		bg3TilePointer++;
+    bg3TilePointer = string;
+    for (bg3TileIndex=0; *bg3TilePointer != 0; bg3TileIndex++) {
+        bg3StringMap[(x+bg3TileIndex)*2 + y*64] = (*(bg3FontTileMap+(*bg3TilePointer-32)*2)) | (bg3PaletteNumber<<10) | (1<<13); // on bg 3 so priority high
+        bg3TilePointer++;
     }
 }
 
 void bg3UpdateText() {
-	dmaCopyVram(bg3StringMap, bg3TileMapAddress, 2048);
+    dmaCopyVram(bg3StringMap, bg3TileMapAddress, 2048);
 }
 
 // VBlank
 
 void superNintendoVblank(void) {
-	scanPads();
+    scanPads();
 
-	if (refreshBg3Text) {
-		bg3UpdateText();
-		refreshBg3Text = FALSE;
-	}
+    if (refreshBg3Text) {
+        bg3UpdateText();
+        refreshBg3Text = FALSE;
+    }
 
-	// Refresh the sprite on the screen
-	dmaCopyOAram((unsigned char *) &oamMemory, 0, 0x220);
+    // Refresh the sprite on the screen
+    dmaCopyOAram((unsigned char *) &oamMemory, 0, 0x220);
 
-	snes_vblank_count++;
+    snes_vblank_count++;
 }
 
 // Main
 
 int main(void) {
-    // Initialize SNES 
-	consoleInit();
+    // Initialize SNES
+    consoleInit();
 
-	setMode(BG_MODE1,BG3_MODE1_PRORITY_HIGH);
-	bgSetEnable(0);
-	bgSetDisable(1);
-	bgSetEnable(2);
-	bgSetDisable(3);
+    setMode(BG_MODE1,BG3_MODE1_PRORITY_HIGH);
+    bgSetEnable(0);
+    bgSetDisable(1);
+    bgSetEnable(2);
+    bgSetDisable(3);
 
-	bgInitTileSet(0, &patterns, &palette, 2, (&patterns_end - &patterns), (&palette_end - &palette), BG_16COLORS, 0x2000);
-	bgInitMapSet(0, &map, (&map_end - &map),SC_32x32, 0x1000);
-	
-	bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
-	bg3PrintText(">", 6, 14);
-	bg3PrintText("START", 8, 14);
-	bg3PrintText("OPTIONS", 8, 16);
-	refreshBg3Text = TRUE;
+    bgInitTileSet(0, &patterns, &palette, 2, (&patterns_end - &patterns), (&palette_end - &palette), BG_16COLORS, 0x2000);
+    bgInitMapSet(0, &map, (&map_end - &map),SC_32x32, 0x1000);
 
-	setScreenOn();
+    bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
+    bg3PrintText(">", 6, 14);
+    bg3PrintText("START", 8, 14);
+    bg3PrintText("OPTIONS", 8, 16);
+    refreshBg3Text = TRUE;
 
-	nmiSet(superNintendoVblank);
-    
-	while(1) {
-		WaitForVBlank();
-	}
-	return 0;
+    setScreenOn();
+
+    nmiSet(superNintendoVblank);
+
+    while(1) {
+        WaitForVBlank();
+    }
+    return 0;
 }
+
