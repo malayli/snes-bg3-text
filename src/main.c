@@ -1,7 +1,7 @@
 #include <snes.h>
 
 // ROM
-#define bg3TileMapAddress 0x1024+2048 // so bg1 tile map can be on 0x1024 and bg2 tile map on 0x1024 + 1024
+#define bg3TileMapAddress 0x1000+2048 // so bg1 tile map can be on 0x1024 and bg2 tile map on 0x1024 + 1024
 #define bg3TileSetAddress 0x4000 // so bg1 tile set can be on 0x2000 and bg2 tile set on 0x3000
 
 extern char snesfontbg3_tiles, snesfontbg3_tiles_end;
