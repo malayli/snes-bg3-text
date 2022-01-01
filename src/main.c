@@ -9,6 +9,13 @@ extern char snesfontbg3_map, snesfontbg3_map_end;
 extern char snesfontbg3_pal;
 
 // RAM
+
+// BG1
+extern char patterns, patterns_end;
+extern char palette, palette_end;
+extern char map, map_end;
+
+// BG3
 bool refreshBg3Text = FALSE;
 u8 bg3StringMap[2048];
 char *bg3TilePointer;
@@ -76,6 +83,9 @@ int main(void) {
 	bgSetDisable(1);
 	bgSetEnable(2);
 	bgSetDisable(3);
+
+	bgInitTileSet(0, &patterns, &palette, 2, (&patterns_end - &patterns), (&palette_end - &palette), BG_16COLORS, 0x2000);
+	bgInitMapSet(0, &map, (&map_end - &map),SC_32x32, 0x1000);
 	
 	bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
 	bg3PrintText(">", 6, 14);

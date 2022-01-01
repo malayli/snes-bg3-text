@@ -23,4 +23,8 @@ bg3fontpalette.pic: res/font/bg3fontpalette.bmp
 	@echo convert font with no tile reduction ... $(notdir $@)
 	$(GFXCONV) -pr -pc4 -n -gs8 -pe0 -fbmp -mp  $<
 
-bitmaps : pvsneslibfont.pic bg3fontpalette.pic
+pvsneslib.pic: pvsneslib.png
+	@echo convert bitmap ... $(notdir $@)
+	$(GFXCONV) -pc16 -po16 -n -gs8 -pe2 -fpng -m $<
+
+bitmaps : pvsneslibfont.pic bg3fontpalette.pic pvsneslib.pic
