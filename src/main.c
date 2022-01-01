@@ -85,9 +85,11 @@ int main(void) {
     bgSetEnable(2);
     bgSetDisable(3);
 
+    // Display an image on BG1
     bgInitTileSet(0, &patterns, &palette, 2, (&patterns_end - &patterns), (&palette_end - &palette), BG_16COLORS, 0x2000);
     bgInitMapSet(0, &map, (&map_end - &map),SC_32x32, 0x1000);
 
+    // Display text on BG3
     bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
     bg3PrintText(">", 6, 14);
     bg3PrintText("START", 8, 14);
