@@ -55,6 +55,7 @@ void bg3PrintText(char *string, u16 x, u16 y) {
 
 // VBlank
 
+// Note: Don't call functions in superNintendoVblank to improve performance
 void superNintendoVblank(void) {
     scanPads();
 
