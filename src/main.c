@@ -3,9 +3,9 @@
 // ROM
 
 // BG1
-extern char patterns, patterns_end;
-extern char palette, palette_end;
-extern char map, map_end;
+extern char bg1Tiles, bg1Tiles_end;
+extern char bg1Palette, bg1Palette_end;
+extern char bg1Map, bg1Map_end;
 
 // BG3
 #define bg3TileMapAddress 0x1000+2048 // so bg1 tile map can be on 0x1024 and bg2 tile map on 0x1024 + 1024
@@ -83,14 +83,14 @@ int main(void) {
     bgSetDisable(3);
 
     // Display an image on BG1
-    bgInitTileSet(0, &patterns, &palette, 2, (&patterns_end - &patterns), (&palette_end - &palette), BG_16COLORS, 0x2000);
-    bgInitMapSet(0, &map, (&map_end - &map),SC_32x32, 0x1000);
+    bgInitTileSet(0, &bg1Tiles, &bg1Palette, 2, (&bg1Tiles_end - &bg1Tiles), (&bg1Palette_end - &bg1Palette), BG_16COLORS, 0x2000);
+    bgInitMapSet(0, &bg1Map, (&bg1Map_end - &bg1Map),SC_32x32, 0x1000);
 
     // Display text on BG3
     bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
-    bg3PrintText(">", 6, 14);
-    bg3PrintText("START", 8, 14);
-    bg3PrintText("OPTIONS", 8, 16);
+    bg3PrintText(">", 4, 14);
+    bg3PrintText("START", 5, 14);
+    bg3PrintText("OPTIONS", 5, 16);
     refreshBg3Text = TRUE;
 
     setScreenOn();
