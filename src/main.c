@@ -18,7 +18,7 @@ extern char snesfontbg3_pal;
 
 // BG3
 bool refreshBg3Text = FALSE;
-u8 bg3StringMap[2048];
+u16 bg3StringMap[1024];
 char *bg3TilePointer;
 int bg3TileIndex;
 u8 bg3PaletteNumber;
@@ -48,13 +48,13 @@ void bg3FontInit(char *fontTileSource,
 void bg3PrintText(char *string, u16 x, u16 y) {
     bg3TilePointer = string;
     for (bg3TileIndex=0; *bg3TilePointer != 0; bg3TileIndex++) {
-        bg3StringMap[(x+bg3TileIndex)*2 + y*64] = (*(bg3FontTileMap+(*bg3TilePointer-32)*2)) | (bg3PaletteNumber<<10) | (1<<13); // on bg 3 so priority high
+        bg3StringMap[(x+bg3TileIndex)*2 + y*32] = (*(bg3FontTileMap+(*bg3TilePointer-32)*2)) | (bg3PaletteNumber<<10) | (1<<13); // on bg 3 so priority high
         bg3TilePointer++;
     }
 }
 
 void bg3UpdateText() {
-    dmaCopyVram(bg3StringMap, bg3TileMapAddress, 2048);
+    dmaCopyVram((u8 *) bg3StringMap,bg3TileMapAddress, 2048);
 }
 
 // VBlank
@@ -63,7 +63,7 @@ void superNintendoVblank(void) {
     scanPads();
 
     if (refreshBg3Text) {
-        bg3UpdateText();
+        dmaCopyVram((u8 *) bg3StringMap,bg3TileMapAddress, 2048);
         refreshBg3Text = FALSE;
     }
 
