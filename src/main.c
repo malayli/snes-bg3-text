@@ -53,10 +53,6 @@ void bg3PrintText(char *string, u16 x, u16 y) {
     }
 }
 
-void bg3UpdateText() {
-    dmaCopyVram((u8 *) bg3StringMap,bg3TileMapAddress, 2048);
-}
-
 // VBlank
 
 void superNintendoVblank(void) {
