@@ -88,9 +88,9 @@ int main(void) {
 
     // Display text on BG3
     bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
-    bg3PrintText(">", 4, 14);
-    bg3PrintText("START", 5, 14);
-    bg3PrintText("OPTIONS", 5, 16);
+    bg3PrintText(">", 4, 19);
+    bg3PrintText("START", 5, 19);
+    bg3PrintText("OPTIONS", 5, 21);
     refreshBg3Text = TRUE;
 
     setScreenOn();
