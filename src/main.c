@@ -45,7 +45,7 @@ void bg3FontInit(char *fontTileSource,
         bg3TileSetAddress);
 }
 
-void bg3PrintText(char *string, u16 x, u16 y) {
+void bg3PrintText(u16 x, u16 y, char *string) {
     bg3TilePointer = string;
     for (bg3TileIndex=0; *bg3TilePointer != 0; bg3TileIndex++) {
         bg3StringMap[x + bg3TileIndex + y*32] = (*(bg3FontTileMap+(*bg3TilePointer-32)*2)) | (bg3PaletteNumber<<10) | (1<<13); // on bg 3 so priority high
@@ -88,9 +88,9 @@ int main(void) {
 
     // Display text on BG3
     bg3FontInit(&snesfontbg3_tiles, &snesfontbg3_tiles_end, &snesfontbg3_pal, 0, &snesfontbg3_map);
-    bg3PrintText(">", 8, 19);
-    bg3PrintText("START", 10, 19);
-    bg3PrintText("OPTIONS", 10, 21);
+    bg3PrintText(8, 19, ">");
+    bg3PrintText(10, 19, "START");
+    bg3PrintText(10, 21, "OPTIONS");
     refreshBg3Text = TRUE;
 
     setScreenOn();
