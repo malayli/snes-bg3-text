@@ -83,7 +83,7 @@ int main(void) {
     bgSetDisable(3);
 
     // Display an image on BG1
-    bgInitTileSet(0, &bg1Tiles, &bg1Palette, 2, (&bg1Tiles_end - &bg1Tiles), (&bg1Palette_end - &bg1Palette), BG_16COLORS, 0x2000);
+    bgInitTileSet(0, &bg1Tiles, &bg1Palette, 2, (&bg1Tiles_end - &bg1Tiles), 16*2, BG_16COLORS, 0x2000);
     bgInitMapSet(0, &bg1Map, (&bg1Map_end - &bg1Map),SC_32x32, 0x1000);
 
     // Display text on BG3
