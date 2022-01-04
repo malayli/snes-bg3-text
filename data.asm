@@ -16,15 +16,15 @@ snesfontbg3_pal_end:
 .section ".rodata2" superfree
 
 bg1Tiles:
-.incbin "res/bg1/bg1.pic"
+.incbin "res/map/bg1.pic"
 bg1Tiles_end:
 
 bg1Map:
-.incbin "res/bg1/bg1.map"
+.incbin "res/map/bg1.map"
 bg1Map_end:
 
 bg1Palette:
-.incbin "res/bg1/bg1.pal"
+.incbin "res/map/bg1.pal"
 bg1Palette_end:
 
 .ends
